@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <conversionRule conversionWord="ip" converterClass="com.liupeihao.wchat.plugin.log.LogIpConfig" />
+    <!-- 在Eclipse/idea中运行，请到Eclipse的安装目录中找log文件，Tomcat下，请到Tomcat目录下找 -->
+    <springProperty scope="context" name="logport" source="server.port" />
+    <property name="LOG_PATH" value="/home/soft/logs/wchat/log" />
+    <appender name="FILEERROR"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/log-error.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>180</MaxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%level]-[%d]-[%ip:${logport}]-[%X{threadID}]-[%C:%L]-%msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录error级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <appender name="RUNTIME"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ALL</level>
+            <!-- DENY（拒绝）, ACCEPT（允许）,NEUTRAL（中立） -->
+            <onMatch>NEUTRAL</onMatch>
+            <onMismatch>NEUTRAL</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/runtime.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <MaxHistory>180</MaxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%level]-[%d]-[%ip:${logport}]-[%X{threadID}]-[%C:%L]-%msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>[%level]-[%d]-[%ip:${logport}]-[%X{threadID}]-[%C:%L]-%msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能 -->
+    <root level="INFO">
+        <appender-ref ref="FILEERROR" />
+        <appender-ref ref="RUNTIME" />
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+

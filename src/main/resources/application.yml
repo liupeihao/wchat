@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+server:
+  port: 80
+  servlet:
+    context-path: /
+logging:
+  config: classpath:logback-spring.xml
+
+#mybatis配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  typeAliasesPackage: com.zyzh.zz.*.server.entity
+  global-config:
+    db-config:
+      id-type: id_worker
+      field-strategy: not_empty
+      column-underline: true
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+    refresh: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
