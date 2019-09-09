@@ -34,48 +34,6 @@
         <swagger2.version>2.9.2</swagger2.version>
     </properties>
 
-
-    <!-- Nexus 私服配置 -->
-    <repositories>
-        <repository>
-            <id>nexus</id>
-            <name>Nexus</name>
-            <url>http://192.168.30.201:8081/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>nexus</id>
-            <name>Nexus</name>
-            <url>http://192.168.30.201:8081/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <!-- 使用maven 部署构件至Nexus -->
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Local Nexus Repository</name>
-            <url>http://192.168.30.201:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Local Nexus Repository</name>
-            <url>http://192.168.30.201:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
