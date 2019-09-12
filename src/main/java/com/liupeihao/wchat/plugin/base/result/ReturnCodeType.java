@@ -1,4 +1,4 @@
-package com.liupeihao.wchat.plugin.exception;
+package com.liupeihao.wchat.plugin.base.result;
 
 
 import java.util.Arrays;

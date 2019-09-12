@@ -1,4 +1,4 @@
-package com.liupeihao.wchat.plugin;
+package com.liupeihao.wchat.plugin.base.constants;
 
 /**
  * @ProjectName: giuhub
@@ -20,6 +20,11 @@ public class Constants {
 
     //青云客返回成功标识
     public static final int SUCCESS_STATUS=0;
+
+    //微信access_token请求成功标识
+    public static  String ACCESS_TOKEN="";
+
+
 
 
 

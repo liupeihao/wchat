@@ -1,4 +1,4 @@
-package com.liupeihao.wchat.plugin.base;
+package com.liupeihao.wchat.plugin.base.result;
 
 import java.util.Arrays;
 

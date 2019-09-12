@@ -15,35 +15,20 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by @author fww on 2019-05-28.
- */
+
 @Slf4j
 @Aspect
 @Component
 public class LogAopAction {
-    private static final String IP = "ip";
-    private static final String URI = "uri";
-    /**
-     * 请求开始时间
-     */
-    private long beginTime;
-
-    /**
-     * 请求结束时间
-     */
-    private long endTime;
-
     @Pointcut("execution(* com.liupeihao.wchat.controller.*.*(..))")
     private void controllerAspect() {
     }
 
     /**
-     * 方法开始执行
+     * 执行前打印请求参数
      */
     @Before("controllerAspect()")
     public void doBefore(JoinPoint point) {
-        beginTime = System.currentTimeMillis();
 
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (ObjectUtils.isEmpty(sra)) {

@@ -1,7 +1,10 @@
-package com.liupeihao.wchat.plugin.base;
+package com.liupeihao.wchat.plugin.base.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.liupeihao.wchat.plugin.exception.ReturnCodeType;
+import com.liupeihao.wchat.plugin.base.result.DataObject;
+import com.liupeihao.wchat.plugin.base.result.ReVo;
+import com.liupeihao.wchat.plugin.base.result.StatusType;
+import com.liupeihao.wchat.plugin.base.result.ReturnCodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

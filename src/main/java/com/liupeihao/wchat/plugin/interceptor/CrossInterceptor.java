@@ -8,9 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by @author fww on 2019-05-24.
- */
+
 @Slf4j
 @Component
 public class CrossInterceptor implements HandlerInterceptor {

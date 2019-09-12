@@ -12,9 +12,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-/**
- * Created by @author fww on 2019-05-27.
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Slf4j
 @Data

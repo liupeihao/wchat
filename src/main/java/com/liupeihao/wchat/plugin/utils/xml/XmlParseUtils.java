@@ -19,6 +19,14 @@ import java.io.StringWriter;
  */
 public class XmlParseUtils {
 
+
+    /**
+     * @Author LPH
+     * @Date 2019/9/9 13:59
+     * @Description
+     *  将bean转化为 xml
+     *
+     */
     public static String beanToXml(Object obj) throws JAXBException {
         if(null != obj){
             StringWriter sw=new StringWriter();

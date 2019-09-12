@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-/**
- * Created by @author fww on 2019-05-28.
- */
+
 public class LogInterceptor implements HandlerInterceptor {
 
     private static final String THREAD_ID = "threadID";

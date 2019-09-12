@@ -1,12 +1,10 @@
 package com.liupeihao.wchat.plugin.exception;
 
+import com.liupeihao.wchat.plugin.base.result.ReturnCodeType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * Created by @author fww on 2019-05-15.
- * update By @author mht on 2019-08-15. exception.getMessage 统一为 code
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BaseException extends RuntimeException{
@@ -17,7 +15,7 @@ public class BaseException extends RuntimeException{
 
     public BaseException(String code) {
         super(code);
-        initBaseException(code,ReturnCodeType.getNameByCode(code));
+        initBaseException(code, ReturnCodeType.getNameByCode(code));
     }
 
     public BaseException(String code, String message) {

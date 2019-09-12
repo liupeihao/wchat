@@ -4,14 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.liupeihao.wchat.dto.qyk.QykResultDto;
 import com.liupeihao.wchat.dto.wchatmessage.WchatMessageDto;
 import com.liupeihao.wchat.dto.wchatmessage.WchatVerifyDto;
-import com.liupeihao.wchat.plugin.Constants;
-import com.liupeihao.wchat.plugin.base.BaseController;
-import com.liupeihao.wchat.plugin.exception.ReturnCodeType;
+import com.liupeihao.wchat.plugin.base.constants.Constants;
+import com.liupeihao.wchat.plugin.base.controller.BaseController;
+import com.liupeihao.wchat.plugin.base.result.ReturnCodeType;
 import com.liupeihao.wchat.plugin.utils.encrypt.SHA1Utils;
 import com.liupeihao.wchat.plugin.utils.http.HttpClientUtils;
 import com.liupeihao.wchat.plugin.utils.xml.XmlParseUtils;
+import com.liupeihao.wchat.service.IWchatMessageService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -42,15 +44,11 @@ public class WchatController extends BaseController {
     @Value("${token}")
     private String token;
 
-    @Value("${qingyunkeURL}")
-    private String qingyunkeURL;
 
-    @Value("${qingyunkeAppId}")
-    private String qingyunkeAppId;
 
-    @Value("${qingyunkeKey}")
-    private String qingyunkeKey;
 
+    @Autowired
+    private IWchatMessageService wchatMessageService;
     /**
      *
      * @Author LPH
@@ -78,39 +76,10 @@ public class WchatController extends BaseController {
 
     @RequestMapping(value = "/notice",method = RequestMethod.POST,produces = MediaType.APPLICATION_XML_VALUE)
     @ResponseBody
-    public String receiveMessage(@RequestBody WchatMessageDto dto, HttpServletResponse response) throws IOException {
+    public String receiveMessage(@RequestBody WchatMessageDto dto){
         try {
-            log.info("请求消息:{}",JSON.toJSONString(dto));
-            //暂时只处理文本类型
-            if(Constants.TEXT.equals(dto.getMsgType())){
-                StringBuilder sb=new StringBuilder();
-                String url=sb.append(qingyunkeURL)
-                        .append("?key=")
-                        .append(qingyunkeKey)
-                        .append("&appid=")
-                        .append(qingyunkeAppId)
-                        .append("&msg=")
-                        .append(dto.getContent()).toString();
-                log.info("青云客URL:{}",url);
-                String result = HttpClientUtils.get(url);
-                log.info("青云客返回参数:{}",result);
-                QykResultDto qykResultDto = JSON.parseObject(result, QykResultDto.class);
-                WchatMessageDto r_content = WchatMessageDto.builder().ToUserName(dto.getFromUserName())
-                        .FromUserName(dto.getToUserName())
-                        .CreateTime(System.currentTimeMillis())
-                        .MsgType(Constants.TEXT)
-                        .build();
-                if(Constants.SUCCESS_STATUS==qykResultDto.getResult()){
-                    r_content.setContent(qykResultDto.getContent());
-                }else{
-                    r_content.setContent(new StringBuilder(dto.getContent()).reverse().toString());
-                }
-                String result_content = XmlParseUtils.beanToXml(r_content);
-                log.info("响应消息:{}",result_content);
-                return result_content;
-            }
-            //非文本不处理。
-            return Constants.SUCCESS;
+            String r_content=wchatMessageService.receiveMessage(dto);
+            return r_content;
         }catch (Exception e){
             log.error(e.getMessage(),e);
             return Constants.SUCCESS;
