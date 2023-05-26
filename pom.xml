@@ -18,7 +18,7 @@
         <lombok.version>1.18.8</lombok.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <spring-boot.version>2.5.15</spring-boot.version>
         <shiro.version>1.4.0</shiro.version>
         <jedis.version>2.9.0</jedis.version>
         <dubbo.version>2.7.1</dubbo.version>
@@ -154,7 +154,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.1.4.RELEASE</version>
+            <version>2.5.15</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
